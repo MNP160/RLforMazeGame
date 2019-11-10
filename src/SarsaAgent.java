@@ -3,12 +3,13 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class SarsaAgent extends Hero implements IAgent {
 
     private final double learningRate = 0.2;
     private final double eagerness = 0.8; //close to 0--looking towards close future; close to 1-- looking to distant future
-    private final double E=0.95;  //greediness
+    private final double E=1;  //greediness
     private final double discountFactor=0.5;
 
 
@@ -203,10 +204,11 @@ public class SarsaAgent extends Hero implements IAgent {
 
                // System.out.println("action:"+action);
 
-               // ArrayList<Integer> actions = possibleActions(current);
+                ArrayList<Integer> actions = possibleActions(current);
                 int reward=rewardMatrix[current][action];
                //System.out.println("reward:"+reward);
-                int next=action;
+                int index=rand.nextInt(actions.size());
+                int next=actions.get(index);
              //  System.out.println("nextState:"+next);
 
                 int nAction=selectAction(next);
